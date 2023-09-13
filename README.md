@@ -3,16 +3,16 @@
 
 ![Logo Fasilkom UI](image.png)
 
-Nama        : Ratu Nadya Anjania
-NPM         : 2206029752
-Kelas       : PBP F
-Kode Asdos  : FH
+Nama        : Ratu Nadya Anjania  
+NPM         : 2206029752  
+Kelas       : PBP F  
+Kode Asdos  : FH  
 
-## Tautan Adaptable
+## Tautan Adaptable  
 
-Tautan: **[https://donate.adaptable.app/](https://donate.adaptable.app/)**.
+Tautan: **[https://donate.adaptable.app/](https://donate.adaptable.app/)**.  
 
-## Jawaban Pertanyaan
+## Jawaban Pertanyaan  
 
 ### 1. Implementasi checklist pada soal secara step-by-step
 
@@ -90,7 +90,7 @@ urlpatterns = [
 
 ![Bagan](image-1.png)
 
-*Penjelasan:*
+**Penjelasan:**  
 _Request_ yang masuk ke server Django akan diproses melalui _URL_, lalu diteruskan ke _view_ dan diproses. Jika peran database diperlukan, _view_ akan memanggil _query_ ke _model_ dan _database_ dan hasilnya akan dikembalikan ke _view_. Setelah itu, hasil tersebut akan dipetakan ke dalam HTML yang sudah didefinisikan dan dikembalikan ke pengguna sebagai HTML response.  
 
 ### 3. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
@@ -116,4 +116,9 @@ Ketiganya merupakan pola desain atau arsitektur untuk pengembangan web untuk mem
     - ***View***: Komponen yang menangani struktur dan tampilan yang dilihat oleh client, representasi model, dan menerima interaksi client.  
     - ***ViewModel***: Komponen penghubung antara _view_ dan _model_ yang mengimplementasikan perintah dan properti yang bisa menjadi sarana pengikatan data oleh _view_. Jika terdapat perubahan _state_, _ViewModel_ memberi informasi kepada _view_.  
   
-Perbedaan ketiganya terletak di peran komponen mediator. MVC memiliki _controller_ yang menjadi mediator antara _model_ dan _view_. MVT menggunakan _view_ sebagai mediator antara _model_ dan _template_. Sementara itu, MVVM melibatkan _ViewModel_ sebagai mediator _model_ dan _view_ yang menggunakan _data-binding_.
+Perbedaan ketiganya terletak dalam aspek sebagai berikut:
+#### Komponen Mediator  
+> MVC memiliki _controller_ yang menjadi perantara antara _model_ dan _view_. MVT menggunakan _view_ sebagai mediator antara _model_ dan _template_. Sementara itu, _ViewModel_ pada MVVM berperan sebagai mediator _model_ (data-logika) dan _view_ (UI). _ViewModel_ menyesuaikan data dari _model_ ke bentuk yang sesuai untuk _view_, dan _data-binding_ biasanya digunakan untuk memperbarui _view_ ketika data di _ViewModel_ berubah secara otomatis.  
+  
+#### Penggunaannya dalam pengembangan
+> MVVM biasa digunakan dalam pengembangan sebuah sistem aplikasi dengan fokus utama penggunaan _User Interface_, terutama saat menggunakan _data-binding_. Di samping itu, MVC dan MVT dapat digunakan dalam pengembangan proyek web dengan Django. MVC juga biasa dipakai dalam pengembangan sistem _software_ yang lebih luas, seperti aplikasi desktop dan nonweb lainnya.  

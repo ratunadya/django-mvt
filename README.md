@@ -34,7 +34,7 @@ Tautan: **[https://donate.adaptable.app/](https://donate.adaptable.app/)**.
 
 > - Buka _file_ `settings.py` pada _folder_ direktori proyek dan tambahkan 'main' pada daftar aplikasi yang ada di list INSTALLED_APPS  
 
-##### Membuat model pada aplikasi main dengan nama Item yang memiliki atribut (name, amount, goal_amount, category, description)  
+#### Membuat model pada aplikasi main dengan nama Item yang memiliki atribut (name, amount, goal_amount, category, description)  
 
 > - Buka _file_ `models.py` pada direktori aplikasi main dan buat _Class_ bernama Item  
 > - Di dalam _Class_, buat:  

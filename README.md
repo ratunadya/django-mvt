@@ -16,7 +16,7 @@ Tautan: **[https://donate.adaptable.app/](https://donate.adaptable.app/)**.
 
 ### 1. Implementasi checklist pada soal secara step-by-step
 
-##### Membuat sebuah proyek Django baru  
+#### Membuat sebuah proyek Django baru  
 
 > - Buat repositori baru dan _folder_ (direktori lokal proyek).  
 > - Setup repositori pada terminal/_command prompt_ direktori lokal yang sudah dibuat:  
@@ -25,12 +25,12 @@ Tautan: **[https://donate.adaptable.app/](https://donate.adaptable.app/)**.
 > - Buat _file_ `requirements.txt` berisi _dependencies_ dan pasang dengan perintah pip install -r requirements.txt  
 > - Buat proyek Django bernama `django_mvt` dengan perintah django-admin startproject django_mvt .  
 
-##### Membuat aplikasi dengan nama main pada proyek tersebut  
+#### Membuat aplikasi dengan nama main pada proyek tersebut  
 
 > - Buka _folder_ direktori utama, lalu terminal dari direktori tersebut  
 > - Aktifkan virtual environment dan jalankan perintah python manage.py startapp main  
 
-##### Melakukan routing pada proyek agar dapat menjalankan aplikasi main  
+#### Melakukan routing pada proyek agar dapat menjalankan aplikasi main  
 
 > - Buka _file_ `settings.py` pada _folder_ direktori proyek dan tambahkan 'main' pada daftar aplikasi yang ada di list INSTALLED_APPS  
 
@@ -47,7 +47,7 @@ Tautan: **[https://donate.adaptable.app/](https://donate.adaptable.app/)**.
 >        category (CharField)  
 >    - _Tuple_ category_choices untuk _dropdown_ atribut category
 
-##### Membuat fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu  
+#### Membuat fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu  
 
 > Buat fungsi bernama `show_main` pada `views.py` dengan parameter request dan kembalian berupa objek HttpResponse dengan teks yang dirender yang selanjutnya di-assign ke template `main.html`. Fungsi ini memiliki dictionary `context` dengan key dan value yang tertera pada kode di bawah ini. Fungsi ini menggabungkan template dan context dictionary tersebut.  
 ```
@@ -61,7 +61,7 @@ def show_main(request):
     return render(request, "main.html", context)
 ```
 
-##### Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py  
+#### Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py  
 
 > - Tambah fungsi path dalam _file_ `urls.py` di direktori proyek di `urlpatterns` dengan argumen `('', include('main.urls'))` untuk mengarahkan ke _file_ `urls.py` di direktori aplikasi.  
 > - Buat `urls.py` pada direktori aplikasi main dan tambahkan `urlpatterns` dengan `path` yang memiliki argumen seperti di bawah agar dapat menampilkan _file_ html yang akan dipanggil oleh fungsi yang telah dibuat pada `views.py`.  
@@ -71,7 +71,7 @@ urlpatterns = [
 ] 
 ```
 
-##### Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat  
+#### Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat  
 
 > - Buka terminal dan jalankan git add, commit, push  
 > - Login pada adaptable, klik tombol New App, lalu Connect an Existing Repository  
@@ -82,7 +82,7 @@ urlpatterns = [
 > - Centang HTTP Listener on Port  
 > - Tekan tombol Deploy Ap, selesai :>  
 
-##### Membuat sebuah README.md yang berisi tautan menuju aplikasi Adaptable yang sudah di-deploy, serta jawaban dari beberapa pertanyaan yang telah diberikan
+#### Membuat sebuah README.md yang berisi tautan menuju aplikasi Adaptable yang sudah di-deploy, serta jawaban dari beberapa pertanyaan yang telah diberikan
 
 > Tuliskan jawaban dari pertanyaan pada _file_ `README.md` yang telah dibuat. 
   

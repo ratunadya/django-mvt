@@ -19,3 +19,4 @@ class Item(models.Model):
     goal_amount = models.IntegerField()
     category = models.CharField(max_length=100, choices=category_choices, default='pendidikan')
     description = models.TextField()
+    date_added = models.DateField(auto_now_add=True)

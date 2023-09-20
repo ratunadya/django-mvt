@@ -1,13 +1,46 @@
-<!DOCTYPE html>
-<html lang="eng">
-    <head>
-        <title>{{ app_name }}</title>
-    </head>
-    <body>
+{% extends 'base.html' %}
 
-        <h1>{{ app_name }}</h1>
-        <p>{{ name }}</p>
-        <p>{{ class }}</p>
+{% block content %}
+    <h1>{{app_name}}</h1>
 
-    </body>
-</html>
+    <h3>Name:</h3>
+    <p>{{name}}</p>
+
+    <h3>Class:</h3>
+    <p>{{class}}</p>
+    <hr>
+    <p>Kamu menyimpan <strong>{{ items | length }}</strong> penggalangan dana pada aplikasi ini</p>
+    
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Goal Amount</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+        {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.goal_amount}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_item' %}">
+        <button>
+            Buat Galang Dana
+        </button>
+    </a>
+
+{% endblock content %}

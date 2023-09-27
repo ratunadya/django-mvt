@@ -80,7 +80,7 @@ urlpatterns = [
 > - Masukkan perintah `python manage.py migrate && gunicorn django-mvt.wsgi` pada Start Command  
 > - Tuliskan nama aplikasi  
 > - Centang HTTP Listener on Port  
-> - Tekan tombol Deploy Ap, selesai :>  
+> - Tekan tombol Deploy App, selesai :>  
 
 #### Membuat sebuah README.md yang berisi tautan menuju aplikasi Adaptable yang sudah di-deploy, serta jawaban dari beberapa pertanyaan yang telah diberikan
 
@@ -122,3 +122,99 @@ Perbedaan ketiganya terletak dalam aspek sebagai berikut:
   
 #### Penggunaannya dalam pengembangan
 > MVVM biasa digunakan dalam pengembangan sebuah sistem aplikasi dengan fokus utama penggunaan _User Interface_, terutama saat menggunakan _data-binding_. Di samping itu, MVC dan MVT dapat digunakan dalam pengembangan proyek web dengan Django. MVC juga biasa dipakai dalam pengembangan sistem _software_ yang lebih luas, seperti aplikasi desktop dan nonweb lainnya.  
+
+
+
+# Tugas 4 PBP  
+
+## Jawaban Pertanyaan  
+  
+### Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+
+Django UserCreationForm adalah sebuah formulir untuk membuat pengguna baru. Impor formulir bawaan ini mempermudah pembuatan formulir pendaftaran pengguna. UserCreationForm memiliki 3 _fields_, yaitu username, password1, dan password2.
+
+- **Kelebihan**:  
+    - Memudahkan pembuatan formulir pendaftaran pengguna, tidak perlu membuat kode dari awal sehingga menghemat waktu dan tenaga.
+    - Melakukan validasi input pengguna sesuai aturan yang ada.
+  
+- **Kekurangan**:  
+    - Menyediakan _fields_ terbatas, untuk melakukan kustomisasi perlu membuat _subclass_ dari UserCreationForm.
+    - Tampilan bawaan sederhana.
+ 
+### Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+
+Dalam konteks Django, **autentikasi** merupakan sebuah proses verifikasi bahwa pengguna benar-benar merupakan pengguna sah/siapa yang mereka klaim, sedangkan **otorisasi** menentukan akses apa saja yang dimiliki oleh pengguna yang telah terautentikasi.
+
+Keduanya penting karena mereka termasuk dalam dua proses **keamanan** esensial yang digunakan untuk melindungi sistem dan informasi. Dengan adanya autentikasi dan otorisasi, privasi data pengguna bisa terjaga, risiko ancaman aplikasi web (seperti _CSRF_, _SQL injection_, dsb.) bisa diminimalisasi, serta mengontrol akses pengguna dengan ketat.
+
+### Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+ 
+Dalam konteks aplikasi web, ***cookies*** adalah sejumlah kecil informasi yang dikirim oleh server web ke browser dan kemudian dikirim kembali oleh browser pada request halaman berikutnya. Dalam konteks penggunaan _cookies_ untuk mengelola data sesi oleh Django, Django menggunakan cookie untuk **mengatasi kondisi _stateless_ aplikasi web dengan menyimpan ID sesi** sehingga setiap kali pengguna mengirimkan _request_ ke server, ID sesi akan digunakan untuk mengidentifikasi sesi pengguna. Dalam kasus _login_, pengguna tidak perlu _login_ berulang kali setiap pindah halaman. Ketika pengguna berhasil _login_ dan sesi mereka dikelola dengan bantuan _cookies_, pengguna dapat tetap terautentikasi di berbagai halaman tanpa harus _login_ ulang setiap kali pengguna mengakses halaman baru.
+ 
+### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+
+Cookies sendiri tidak membahayakan keamanan, tetapi **penggunaan cookies memiliki risiko potensial yang harus diwaspadai**. Penjahat siber dapat memanfaatkan cookies untuk menyamar sebagai pengguna, mengumpulkan data sensitif, mengakses akun pengguna lain, dan sebagainya. Risiko potensial yang perlu diperhatikan, yaitu ancaman serangan aplikasi web seperti XSS, CSRF, _cookie poisoning_, dan sebagainya. Oleh karena itu, pengelolaan dan pengamanan _cookies_ perlu diawasi dengan baik.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+#### Implementasi fungsi registrasi, _login_, dan _logout_ 
+- Jalankan _virtual environment_.
+- _Import_ ``UserCreationForm``, ``redirect``, dan ``messages`` (tahapan _register_), ``authenticate`` dan ``login`` (tahapan _login_), ``logout`` (tahapan _logout_) pada ``views.py``.
+- Pada ``views.py`` juga, buat fungsi ``register``, ``login_user``, dan ``logout_user`` yang menerima parameter _request_ dan memanfaatkan hal-hal yang telah diimpor  (``UserCreationForm``, dst.).
+- Buat berkas HTML untuk bagian _register_ dan _login_ dengan nama ``register.html`` dan ``login.html`` pada ``main/templates``. Fungsi yang telah dibuat tadi akan me-_render_ berkas html tersebut.
+- Untuk _logout_, tambahkan _button logout_ di berkas ``main.html`` pada ``main/templates``.
+- Impor fungsi-fungsi yang sudah dibuat pada ``urls.py`` di subdirektori ``main``.
+- Tambahkan _path_ ke dalam ``urlpatterns`` agar fungsi dapat diakses.
+
+#### Pembuatan dua akun pengguna dengan tiga _dummy data_
+
+Register dua akun dengan dua kredensial (_username_, _password_) berbeda, lalu meng-_input_ 3 data baru dalam masing-masing akun.
+
+#### Menghubungkan model ``Item`` dengan ``User``
+
+- Impor ``User`` dalam ``models.py`` yang ada di subdirektori main.
+- Menambahkan kode sebagai berikut yang mengasosiasikan satu item dengan satu user melalui _relationship_.
+```
+class Item(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+```
+- Menambahkan kode berikut untuk mencegah Django menyimpan objek secara langsung ke _database_ serta menandakan objek milik pengguna yang sedang _login_.
+```
+...
+     product = form.save(commit=False)
+     product.user = request.user
+     product.save()
+     return HttpResponseRedirect(reverse('main:show_main'))
+ ...
+```
+- Menampilkan objek item yang terasosiasi dengan pengguna dengan menambahkan kode berikut pada fungsi ``show_main`` di ``views.py``
+```
+...
+ products = Product.objects.filter(user=request.user)
+ ...
+ ```
+ - Simpan perubahan dan lakukan migrasi.
+ - Menetapkan _default value_ untuk _field user_ dengan memilih ``pilihan 1`` ketika muncul _error_ saat migrasi model.
+ - Menetapkan _user_ dengan ID 1 dengan mengetik angka `1` lagi.
+ - Melakukan migrasi.
+ 
+
+####  Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.
+
+- Impor ``datetime`` (``HttpResponseRedirect`` dan ``reverse`` sudah diimpor sebelumnya).
+- Tambahkan cookie bernama ``last_login`` dengan mengganti kode dengan potongan kode berikut:
+```
+...
+if user is not None:
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main")) 
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+    return response
+...
+```
+- Menambahkan informasi _cookie_ pada respons yang akan ditampilkan dengan menambahkan kode berikut pada ``context``di ``show_main``:
+```
+'last_login': request.COOKIES['last_login'],
+```
+- Menampilkan data _last login_ dengan menambahkan kode mengenai keterangan sesi terakhir login pada ``main.html``.

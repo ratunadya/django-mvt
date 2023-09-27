@@ -124,6 +124,8 @@ Perbedaan ketiganya terletak dalam aspek sebagai berikut:
 > MVVM biasa digunakan dalam pengembangan sebuah sistem aplikasi dengan fokus utama penggunaan _User Interface_, terutama saat menggunakan _data-binding_. Di samping itu, MVC dan MVT dapat digunakan dalam pengembangan proyek web dengan Django. MVC juga biasa dipakai dalam pengembangan sistem _software_ yang lebih luas, seperti aplikasi desktop dan nonweb lainnya.  
 
 
+***
+
 
 # Tugas 4 PBP  
 

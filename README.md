@@ -1,7 +1,7 @@
 
 # Tugas 2 PBP
 
-![Logo Fasilkom UI](image.png)
+![Logo Fasilkom UI](image-7.png)
 
 Nama        : Ratu Nadya Anjania  
 NPM         : 2206029752  

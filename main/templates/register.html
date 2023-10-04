@@ -11,6 +11,7 @@
     <h1>Register</h1>  
 
         <form method="POST" >  
+            <div>
             {% csrf_token %}  
             <table>  
                 {{ form.as_table }}  
@@ -32,3 +33,4 @@
 </div>  
 
 {% endblock content %}
+

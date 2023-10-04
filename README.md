@@ -386,3 +386,72 @@ if user is not None:
 'last_login': request.COOKIES['last_login'],
 ```
 - Menampilkan data _last login_ dengan menambahkan kode mengenai keterangan sesi terakhir login pada ``main.html``.
+
+
+***
+
+
+# Tugas 5 PBP
+
+## Jawaban Petanyaan
+
+### Manfaat dari setiap _element selector_ dan waktu yang tepat untuk menggunakannya
+
+_Element Selector_ adalah salah satu _selector_ pada CSS yang menjadikan elemen sebagai _selector_. Manfaat secara umum dari element selector adalah mengaplikasikan _style_ atau _declaration_ (_property_:_value_) yang sama kepada satu tipe elemen. _Element Selector_ akan meningkatkan efisiensi karena kita tidak perlu menspesifikkan tampilan yang sama satu persatu pada tiap _tag_ HTML yang sama. Beberapa variasi _element selector_ beserta manfaatnya antara lain:
+
+|    **_Selector_**   |                                                                       **Manfaat dan Waktu Penggunaan**                                                                       |
+|:-------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| element             | Ketika ingin men-_select_ semua elemen yang memiliki _tag_ HTML yang sama.                                                                                                   |
+| element.class       | Ketika ingin men-_select_ semua elemen dengan _class_ tertentu (misal: `p.intro`, _class_=`intro`).                                                                          |
+| element, element    | Ketika ingin men-_select_ masing-masing semua elemen dua _tag_ HTML yang dijadikan _selector_ (misal: div, p akan men-_select_ semua elemen `<div>` dan semua elemen `<p>`). |
+| element element     | Ketika ingin men-_select_ semua elemen satu _tag_ HTML yang ada di dalam _tag_ HTML lainnya (_nested_).                                                                      |
+| element1 > element2 | Ketika ingin men-_select_ semua element2, di mana _parent_-nya adalah element1.                                                                                              |
+| element1 + element2 | Ketika butuh men-_select_ elemen2 pertama yang posisinya persis setelah element1.                                                                                            |
+| element1 ~ element2 | Ketika butuh men-_select_ setiap elemen element2 yang didahului oleh elemen element1.                                                                                        |
+
+Waktu yang tepat untuk menggunakan element selector adalah saat kita ingin mengaplikasikan tampilan yang sama kepada sebuah grup elemen secara bersamaan tanpa mementingkan karakteristik tertentu dari tag HTML selain fakta bahwa ia adalah elemen yang sama.
+
+### HTML5 _Tag_ yang saya ketahui
+
+|       **HTML5 _Tag_**       |                                                                                                                                 **Penjelasan**                                                                                                                                 |
+|:---------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| `<a>`                       | Singkatan dari “anchor tag”, menspesifikkan anchor. Biasanya digunakan bersama dengan attribute-nya yaitu href (hypertext reference) yang bisa membuat navigasi antara halaman web, tautan ke dokumen lain, atau bahkan tautan ke bagian yang berbeda dalam halaman yang sama. |
+| `<abbr>`                    | Mendefinisikan singkatan atau akronim.                                                                                                                                                                                                                                         |
+| `<address>`                 | Mendefinisikan kontak informasi pemilik dokumen. Biasanya di-_render_ dalam _italic_.                                                                                                                                                                                          |
+| `<body>`                    | Mendefinisikan _body_ dokumen. Dalam sebuah dokumen HTML, hanya ada satu elemen _body_.                                                                                                                                                                                        |
+| `<br>`                      | Menambahkan _single line break_. Merupakan salah satu _self-closing tag_ (_empty tag_).                                                                                                                                                                                        |
+| `<button>`                  | Membuat tombol yang dapat diklik oleh pengguna.                                                                                                                                                                                                                                |
+| `<div>`                     | Membuat sebuah grup elemen atau _section_ dalam dokumen.                                                                                                                                                                                                                       |
+| `<nav>`                     | _Tag_ untuk mendefinisikan sekumpulan tautan navigasi.                                                                                                                                                                                                                         |
+| `<footer>`                  | Mendefinisikan sebuah _footer_ dalam dokumen.                                                                                                                                                                                                                                  |
+| `<h1>`, `<h2>`, ..., `<h6>` | Mendefinisikan _heading_. `<h1>` adalah _heading_ paling penting dan berukuran paling besar, menuju `<h6>`, ukuran _heading_ mengecil dan tingkat kepentingannya terakhir.                                                                                                     |
+
+### Perbedaan antara _margin_ dan _padding_
+
+***Margin*** mengontrol jarak antara _border_ dengan elemen lainnya (batas luar). Sementara itu, ***padding*** memberikan jarak di antara konten dan _border_ (batas dalam).
+
+### Perbedaan antara _framework_ CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+
+|                                     **Tailwind CSS**                                     |                                   **Bootstrap**                                  |
+|:----------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
+| Menawarkan pendekatan penggabungan kelas-kelas utilitas yang juga dapat digunakan ulang. | Menawarkan _template_ atau komponen siap-pakai.                                  |
+| Menawarkan fleksibilitas dan kebebasan desain yang lebih tinggi.                         | Menghasilkan tampilan yang lebih konsisten.                                      |
+| Cenderung memiliki _file_ CSS yang lebih kecil dibandingkan dengan Bootstrap.            | Cenderung memiliki _file_ CSS yang lebih besar dibandingkan dengan Tailwind CSS. |
+| Memerlukan pemahaman akan kelas-kelas utilitas dan penggabungannya.                      | Lebih mudah digunakan oleh pemula.                                               |
+
+Jika kita membutuhkan lebih banyak kontrol dalam kustomisasi tampilan dan memiliki penekanan lebih pada fleksibelitas serta kreaktivitas desain, Tailwind CSS dapat menjadi pilihan yang baik. Jika kita ingin mengembangkan proyek dengan cepat dan membutuhkan komponen yang  siap pakai dengan gaya konsisten, Bootstrap dapat menjadi pilihan yang baik.
+
+### Implementasi _checklist_ di atas secara _step-by-step_
+
+#### Kustomisasi desain pada templat HTML yang telah dibuat pada Tugas 4 dengan menggunakan Tailwind CSS
+
+* Melakukan _install_ Tailwind menggunakan _Play CDN_ dengan menambahkan baris kode berikut pada `base.html`
+
+```
+ <script src="https://cdn.tailwindcss.com"></script>
+ ```
+* Menambahkan kode berikut pada `base.html`
+
+```
+<body class="bg-gradient-to-r from-cyan-500 to-blue-500">
+```

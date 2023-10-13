@@ -456,6 +456,10 @@ Jika kita membutuhkan lebih banyak kontrol dalam kustomisasi tampilan dan memili
 <body class="bg-gradient-to-r from-cyan-500 to-blue-500">
 ```
 
+
+***
+
+
 # Tugas 6 PBP
 
 ## Jawaban Pertanyaan
@@ -474,11 +478,13 @@ Jika kita membutuhkan lebih banyak kontrol dalam kustomisasi tampilan dan memili
 
 ### Penerapan _Asynchronous Programming_ pada AJAX
 
-* 
+* Salah satu penerapan _asynchronous programming_ pada AJAX adalah dengan menggunakan fungsi `async` yang dapat mengembalikan data secara asinkronus. Dengan menerapkan _asynchronous programming_, sebagian data pada halaman web dapat diperbarui tanpa perlu melakukan _refresh_.
 
 ### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
 
-* Perbedaan fetch API dengan library JQuery:    
+Baik **Fetch API** maupun **library jQuery** merupakan pendekatan yang digunakan untuk mengimplementasikan AJAX. Fetch API membuat _request_ dengan `Promise` yang lebih modern dan cenderung mudah untuk digunakan, sedangkan jQuery menggunakan _Deferred Object_ dan _callback_.
+
+Dalam pandangan saya, teknologi Fetch API lebih baik untuk digunakan karena cenderung lebih sederhana, efisien, dan ringan dibanding dengan library jQuery.
 
 ### Implementasi checklist di atas secara _step-by-step_
 
@@ -495,21 +501,41 @@ Jika kita membutuhkan lebih banyak kontrol dalam kustomisasi tampilan dan memili
     
         * Membuat fungsi `add_item_ajax` untuk menambahkan item baru ke dalam basis data.
         * Mengimpor dan membuatlah path `/create-ajax/` yang mengarah ke fungsi view yang baru dibuat.
-        * Membuat tombol `Add Item by AJAX` yang membuka modal dengan form untuk menambahkan item
+        * Menyusun modal dengan form dengan tag html.
         * Menghubungkan form yang telah dibuat ke path `/create-ajax/`.
+        * Membuat tombol `Add Item by AJAX` yang membuka modal dengan form untuk menambahkan item.
+        * Membuat fungsi `addProduct` di `<script>` yang berguna untuk menambahkan data berdasarkan input ke basis data secara asinkronus.
+        * Menambahkan atribut `onclick` pada tombol `Add Product`.
 
     * **AJAX DELETE**
-        * 
+        * Membuat fungsi `delete_item` pada `views.py` untuk emnghapus data produk
+        * Mengimpor fungsi dan mengonfigurasi path url dalam `urls.py`.
+        * Membuat fungsi deleteItems yang akan menghapus _item_ secara asinkronus, sebagai berikut:
+            ```
+            async function deleteItems(pk) {
+                return fetch(`delete/${pk}`).then((res) => refreshItems())
+            }
+            ```
+        * Membuat tombol button `delete` dalam tabel dengan id `item_table` dengan atribut `onclick=deleteItems(${item.pk})` yang akan memanggil fungsi sebelumnya.
 
 * Melakukan perintah collectstatic.
+
+    * Menambahkan kode berikut pada `settings.py`
+        ```
+        STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+        ```
+    * Menjalankan perintah `collectstatic` di terminal.
 
 * Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
 
 * Melakukan add-commit-push ke GitHub.
 
-* Melakukan deployment ke PaaS PBP Fasilkom UI dan sertakan tautan aplikasi pada file README.md.
+* Melakukan _deployment_ ke PaaS PBP Fasilkom UI dan sertakan tautan aplikasi pada file README.md.
 
+    * Menambahkan konfigurasi _deployment_ dan melengkapinya dengan beberapa berkas baru (procfile, pbp-deploy.yml, .dockerignore, dockerfile), serta membuat _secret key_ pada Github.
 
+    * **Tautan aplikasi:** 
+        http://ratu-nadya-tugas.pbp.cs.ui.ac.id/ 
 
 **Sumber:**
-    * https://www.mendix.com/blog/asynchronous-vs-synchronous-programming/#:~:text=The%20differences%20between%20asynchronous%20and,multiple%20requests%20to%20a%20server.   
+     https://www.mendix.com/blog/asynchronous-vs-synchronous-programming/#:~:text=The%20differences%20between%20asynchronous%20and,multiple%20requests%20to%20a%20server.   

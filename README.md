@@ -532,7 +532,7 @@ Dalam pandangan saya, teknologi Fetch API lebih baik untuk digunakan karena cend
 
 * Melakukan _deployment_ ke PaaS PBP Fasilkom UI dan sertakan tautan aplikasi pada file README.md.
 
-    * Menambahkan konfigurasi _deployment_ dan melengkapinya dengan beberapa berkas baru (procfile, pbp-deploy.yml, .dockerignore, dockerfile), serta membuat _secret key_ pada Github.
+    * Menambahkan konfigurasi _deployment_ dan melengkapinya dengan beberapa berkas baru (procfile, pbp-deploy.yml, .dockerignore, Dockerfile), serta membuat _secret key_ pada Github.
 
     * **Tautan aplikasi:** 
         http://ratu-nadya-tugas.pbp.cs.ui.ac.id/ 

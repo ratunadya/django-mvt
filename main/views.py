@@ -9,18 +9,23 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/login')
 def show_main(request):
     items = Item.objects.filter(user=request.user)
 
+    try:
+        last_login = request.COOKIES['last_login']
+    except KeyError:
+        return render(request, "login.html")
+
     context = {
         'name': request.user.username,
         'app_name': 'Aplikasi Pengelola Donasi',
-        'name': 'Ratu Nadya Anjania',
         'class': 'PBP F',
         'items': items,
-        'last_login': request.COOKIES['last_login'],
+        'last_login': last_login,
     }
 
     return render(request, "main.html", context)
@@ -70,6 +75,14 @@ def create_item(request):
     context = {'form': form}
     return render(request, "create_item.html", context)
 
+def delete_item(request, id):
+    # Get data berdasarkan ID
+    item = Item.objects.get(pk = id)
+    # Hapus data
+    item.delete()
+    # Kembali ke halaman awal
+    return HttpResponse(b"DELETED", status=200)
+
 def show_xml(request):
     data = Item.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
@@ -85,3 +98,24 @@ def show_xml_by_id(request, id):
 def show_json_by_id(request, id):
     data = Item.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def get_item_json(request):
+    item_product = Item.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', item_product))
+
+@csrf_exempt
+def add_item_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        goal_amount = request.POST.get("goal_amount")
+        category = request.POST.get("category")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_item = Item(name=name, amount=amount, goal_amount=goal_amount, category=category, description=description, user=user)
+        new_item.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()

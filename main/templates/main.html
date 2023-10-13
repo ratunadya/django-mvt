@@ -1,59 +1,149 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <style>
-        .last {
-            background-color: whitesmoke;
-        }
-    </style>
-    <h1>{{app_name}}</h1>
-
-    <h3>Name:</h3>
-    <p>{{name}}</p>
-
-    <h3>Class:</h3>
-    <p>{{class}}</p>
+<nav class="navbar" style="background-color: black;">
+    <div class="container-fluid">
+      <h3 style="color:whitesmoke">{{ app_name }}</h3>
+      <a href="{% url 'main:logout' %}">
+        <button class="btn btn-outline-primary">Logout</button>
+      </a>
+    </div>
+  </nav>
+  <div style="padding-left: 20px;">
+    <br>
+    <h1 class="display-5">Welcome, {{ name }}</h1>
+    <br>
     <hr>
-    <p>Kamu menyimpan <strong>{{ items | length }}</strong> penggalangan dana pada aplikasi ini</p>
-    
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Goal Amount</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date Added</th>
-        </tr>
-
-        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
-        {% for item in items %}
-            <tr class="{% if forloop.last %}last{% endif %}">
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.goal_amount}}</td>
-                <td>{{item.category}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.date_added}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <br>
+    <p>Kamu menyimpan <strong id="total_item">{{ items | length }}</strong> penggalangan dana pada aplikasi ini</p>
+    <br>
+    <table class="table table-sm table-dark table-hover" id="item_table"></table>
 
     <br />
 
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    <p><strong>Sesi terakhir login: </strong>{{ last_login }}</p>
+    <br>
     
     <a href="{% url 'main:create_item' %}">
-        <button>
+        <button type="button" class="btn btn-primary">
             Buat Galang Dana
         </button>
     </a>
 
     <a href="{% url 'main:logout' %}">
-        <button>
+        <button type="button" class="btn btn-danger">
             Logout
         </button>
     </a>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
+    <br>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="goal_amount" class="col-form-label">Target:</label>
+                        <input type="number" class="form-control" id="amount" name="goal_amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="col-form-label">Category:</label>
+                        <select class="form-control" id="category" name="category">
+                            <option value="pendidikan">Pendidikan</option>
+                            <option value="medis dan kesehatan">Medis dan Kesehatan</option>
+                            <option value="lingkungan">Lingkungan</option>
+                            <option value="bencana alam">Bencana Alam</option>
+                            <option value="anak-anak">Anak-anak</option>
+                            <option value="kemanusiaan">Kemanusiaan</option>
+                            <option value="zakat">Zakat</option>
+                            <option value="wakaf">Wakaf</option>
+                            <option value="panti asuhan">Panti Asuhan</option>
+                            <option value="hewan">Hewan</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+            async function getItems() {
+                return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+            }
+            
+            async function deleteItems(pk) {
+                return fetch(`delete/${pk}`).then((res) => refreshItems())
+            }
+
+            async function refreshItems() {
+                document.getElementById("item_table").innerHTML = ""
+                const items = await getItems()
+                let htmlString = `<tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Target</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>`
+                items.forEach((item) => {
+                    htmlString += `\n<tr>
+                    <td>${item.fields.name}</td>
+                    <td>${item.fields.amount}</td>
+                    <td>${item.fields.goal_amount}</td>
+                    <td>${item.fields.category}</td>
+                    <td>${item.fields.description}</td>
+                    <td>${item.fields.date_added}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick=deleteItems(${item.pk})>
+                            Delete
+                        </button>
+                    </td>
+                </tr>` 
+                })
+                
+                document.getElementById("item_table").innerHTML = htmlString
+                document.getElementById("total_item").innerText = items.length
+            }
+
+        refreshItems()
+
+            function addProduct() {
+                fetch("{% url 'main:add_item_ajax' %}", {
+                    method: "POST",
+                    body: new FormData(document.querySelector('#form'))
+                }).then(refreshItems)
+
+                document.getElementById("form").reset()
+                return false
+            }
+            document.getElementById("button_add").onclick = addProduct
+    </script>
 
 {% endblock content %}

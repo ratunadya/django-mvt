@@ -455,3 +455,61 @@ Jika kita membutuhkan lebih banyak kontrol dalam kustomisasi tampilan dan memili
 ```
 <body class="bg-gradient-to-r from-cyan-500 to-blue-500">
 ```
+
+# Tugas 6 PBP
+
+## Jawaban Pertanyaan
+
+### Perbedaan antara _Asynchronous Programming_ dengan _Synchronous Programming_
+
+|                                           ***Asynchronous Programming***                                          |                                                        ***Synchronous Programming***                                                        |
+|:-----------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+| Program dapat berjalan secara paralel, independen, atau bersamaan (_multi-thread_)                                | Eksekusi program bergantung pada selesainya operasi program sebelumnya atau program berjalan dalam satu waktu (sekuensial, _single_thread_) |
+| Umumnya bersifat _non-blocking_                                                                                   | Seringkali bersifat _blocking_                                                                                                              |
+| Relatif kompleks saat menangani beberapa operasi asinkron, tetapi memiliki solusi seperti promises dan async/wait | Struktur lebih sederhana                                                                                                                    |
+
+### Paradigma _Event-driven Programming_ dan Contoh Penerapannya pada Tugas
+
+* Event-driven programming adalah pendekatan pemrograman di mana jalannya program didasarkan pada pemicu eksternal berupa _event_ atau aksi pengguna seperti meng-click mouse. Contoh penerapan pada tugas, yaitu saat kita _click_ tombol `delete` pada tabel item, fungsi tertentu dalam program akan terpanggil dan menghapus item tersebut.
+
+### Penerapan _Asynchronous Programming_ pada AJAX
+
+* 
+
+### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+
+* Perbedaan fetch API dengan library JQuery:    
+
+### Implementasi checklist di atas secara _step-by-step_
+
+* Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
+
+    * **AJAX GET**
+
+        * Membuat fungsi `get_item_json` pada `views.py` untuk mengembalikan data json.
+        * Mengimpor fungsi serta mengonfigurasi path fungsi yang sudah dibuat pada `urls.py`.
+        * Membuat fungsi `getItems()` pada block `<script>` di `main.html` yang menggunakan `fetch()` API ke data JSON dan mengambil data secara asinkronus.
+        * Membuat fungsi `refreshItems` yang me-refresh data item secara asinkronus.
+     
+     * **AJAX POST**
+    
+        * Membuat fungsi `add_item_ajax` untuk menambahkan item baru ke dalam basis data.
+        * Mengimpor dan membuatlah path `/create-ajax/` yang mengarah ke fungsi view yang baru dibuat.
+        * Membuat tombol `Add Item by AJAX` yang membuka modal dengan form untuk menambahkan item
+        * Menghubungkan form yang telah dibuat ke path `/create-ajax/`.
+
+    * **AJAX DELETE**
+        * 
+
+* Melakukan perintah collectstatic.
+
+* Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+
+* Melakukan add-commit-push ke GitHub.
+
+* Melakukan deployment ke PaaS PBP Fasilkom UI dan sertakan tautan aplikasi pada file README.md.
+
+
+
+**Sumber:**
+    * https://www.mendix.com/blog/asynchronous-vs-synchronous-programming/#:~:text=The%20differences%20between%20asynchronous%20and,multiple%20requests%20to%20a%20server.   

@@ -20,6 +20,7 @@ class mainTest(TestCase):
         response = Client().get('')
         self.assertTemplateUsed(response, 'main.html')
 
+    # checking if object is created
     def test_object_is_exist(self):
         test_object = Item.objects.get(name='Test')
         self.assertEqual(test_object.amount, 100)

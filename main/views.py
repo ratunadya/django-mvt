@@ -75,6 +75,25 @@ def create_item(request):
     context = {'form': form}
     return render(request, "create_item.html", context)
 
+@csrf_exempt
+def create_item_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_item = Item.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["price"]),
+            description = data["description"]
+        )
+
+        new_item.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
 def delete_item(request, id):
     # Get data berdasarkan ID
     item = Item.objects.get(pk = id)
